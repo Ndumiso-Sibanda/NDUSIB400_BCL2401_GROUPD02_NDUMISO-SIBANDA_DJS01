@@ -14,12 +14,19 @@ const initialDistance = { value: 0, unit: "km" }; // distance (km)
 const fuelAmount = { value: 5000, unit: "kg" }; // remaining fuel (kg)
 const fuelBurnRate = { value: 0.5, unit: "kg/s" }; // fuel burn rate (kg/s)
 
+// Convert units to a common unit (m/s, m, kg)
+const velocityInMetersPerSecond = velocity.value / 3.6;
+const initialDistanceInMeters = initialDistance.value * 1000;
+
 // Calculate new distance
 const newDistanceInMeters =
  initialDistanceInMeters + velocityInMetersPerSecond * duration.value;
 const newDistanceInKilometers = newDistanceInMeters / 1000;
 
-const rf = fbr * time; //calculates remaining fuel
+// Calculate remaining fuel
+const remainingFuelInKilograms =
+ fuelAmount.value - fuelBurnRate.value * duration.value;
+
 const vel2 = calcNewVel(acc, vel, time); //calculates new velocity based on acceleration
 
 // Pick up an error with how the function below is called and make it robust to such errors
